@@ -1,6 +1,27 @@
 /* Common styles for all <p> elements */
 
-#humidity:after {
+
+
+#main-container {
+  display: grid; /* Use grid layout */
+  grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+  grid-template-rows: repeat(2, 1fr); /* Two rows with equal height */
+  height: 100vh; /* Cover the whole screen vertically */
+  font-size: xx-large;
+}
+
+#main-container > div {
+  padding: 10px;
+}
+
+#humidity,
+#temperature,
+#gas,
+#ultrasonic {
+  display: none;
+}
+
+/* #humidity:after {
   content: " %";
 }
 
@@ -9,7 +30,7 @@
 }
 
 #temperature:after {
-  content: " °C";
+  content: " °F";
 }
 
 #temperature:before {
@@ -37,4 +58,4 @@
 #gas:before,
 #ultrasonic:before {
   margin-right: 8px;
-}
+} */
