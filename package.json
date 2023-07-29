@@ -1,0 +1,15 @@
+{
+  "name": "bearrescue_frontend",
+  "version": "0.0.1",
+  "description": "Front end for ESP32 project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "express": "^4.18.2",
+    "path": "^0.12.7"
+  }
+}
