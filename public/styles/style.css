@@ -1,0 +1,113 @@
+/* Variables */
+
+:root {
+  --ucla-gold: #ffb81c;
+  --ucla-gold-lighter: #ffc72c;
+  --ucla-blue: #8bb8e8;
+  --ucla-blue-lighter: #daebfe;
+  --back-overlay: #111;
+  --back-overlay-light: #333;
+  --contrast-backdrop: white;
+  --text-color: white;
+}
+
+/* Sources */
+
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../assets/ChakraPetch-Regular.ttf") format("truetype");
+}
+
+/* General Aesthetic */
+
+.bear-bruin {
+  font-family: "Chakra Petch", Helvetica, Arial, Lucida, sans-serif;
+}
+
+body {
+  background-color: var(--contrast-backdrop);
+  color: var(--text-color);
+}
+
+h1 {
+  font-family: "Chakra Petch", Helvetica, Arial, Lucida, sans-serif;
+  text-align: center;
+}
+
+p {
+  line-height: 1.6em;
+}
+
+a {
+  color: var(--ucla-blue);
+  transition: all 0.2s ease-in;
+}
+
+a:hover {
+  color: var(--ucla-blue-lighter);
+  text-shadow: var(--ucla-blue) 1px 0 5px;
+}
+
+/* other styles */
+
+#main-nav {
+  font-family: Arial, Lucida, sans-serif;
+  font-size: 1.1em;
+  background-color: #111111b2;
+
+  margin-left: 160px;
+  margin-right: 160px;
+  height: 100vh;
+}
+
+.main-content {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.thematic-image {
+  background-image: url("../images/background.jpg");
+  opacity: 75%;
+  position: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.UCLA-Gold {
+  color: var(--ucla-gold);
+}
+
+/* Navbar styles */
+
+ul.navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--back-overlay-light);
+}
+
+.navbar li {
+  float: left;
+}
+
+.navbar li a {
+  display: block;
+  color: var(--text-color);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li a:hover:not(.active) {
+  background-color: var(--back-overlay);
+}
+
+.active {
+  background-color: var(--ucla-gold);
+}
