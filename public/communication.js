@@ -38,7 +38,7 @@ var V =
     : typeof self < "u"
     ? self
     : {};
-function W(I) {
+function X(I) {
   return I && I.__esModule && Object.prototype.hasOwnProperty.call(I, "default")
     ? I.default
     : I;
@@ -89,9 +89,9 @@ var Q = { exports: {} };
                 if (typeof e[i] !== t[i])
                   throw new Error(c(a.INVALID_TYPE, [typeof e[i], i]));
               } else {
-                var r = "Unknown property, " + i + ". Valid properties are:";
-                for (var o in t) t.hasOwnProperty(o) && (r = r + " " + o);
-                throw new Error(r);
+                var s = "Unknown property, " + i + ". Valid properties are:";
+                for (var o in t) t.hasOwnProperty(o) && (s = s + " " + o);
+                throw new Error(s);
               }
         },
         P = function (e, t) {
@@ -159,7 +159,7 @@ var Q = { exports: {} };
             text: "AMQJS0018E Message buffer is full, maximum buffer size: {0}.",
           },
         },
-        J = {
+        H = {
           0: "Connection Accepted",
           1: "Connection Refused: unacceptable protocol version",
           2: "Connection Refused: identifier rejected",
@@ -170,11 +170,11 @@ var Q = { exports: {} };
         c = function (e, t) {
           var i = e.text;
           if (t) {
-            for (var r, o, s = 0; s < t.length; s++)
-              if (((r = "{" + s + "}"), (o = i.indexOf(r)), o > 0)) {
+            for (var s, o, r = 0; r < t.length; r++)
+              if (((s = "{" + r + "}"), (o = i.indexOf(s)), o > 0)) {
                 var f = i.substring(0, o),
-                  g = i.substring(o + r.length);
-                i = f + t[s] + g;
+                  g = i.substring(o + s.length);
+                i = f + t[r] + g;
               }
           }
           return i;
@@ -189,7 +189,7 @@ var Q = { exports: {} };
         var e = (this.type & 15) << 4,
           t = 0,
           i = [],
-          r = 0,
+          s = 0,
           o;
         switch ((this.messageIdentifier !== void 0 && (t += 2), this.type)) {
           case d.CONNECT:
@@ -212,14 +212,14 @@ var Q = { exports: {} };
             break;
           case d.SUBSCRIBE:
             e |= 2;
-            for (var s = 0; s < this.topics.length; s++)
-              (i[s] = T(this.topics[s])), (t += i[s] + 2);
+            for (var r = 0; r < this.topics.length; r++)
+              (i[r] = T(this.topics[r])), (t += i[r] + 2);
             t += this.requestedQos.length;
             break;
           case d.UNSUBSCRIBE:
             e |= 2;
-            for (var s = 0; s < this.topics.length; s++)
-              (i[s] = T(this.topics[s])), (t += i[s] + 2);
+            for (var r = 0; r < this.topics.length; r++)
+              (i[r] = T(this.topics[r])), (t += i[r] + 2);
             break;
           case d.PUBREL:
             e |= 2;
@@ -228,8 +228,8 @@ var Q = { exports: {} };
             this.payloadMessage.duplicate && (e |= 8),
               (e = e |= this.payloadMessage.qos << 1),
               this.payloadMessage.retained && (e |= 1),
-              (r = T(this.payloadMessage.destinationName)),
-              (t += r + 2);
+              (s = T(this.payloadMessage.destinationName)),
+              (t += s + 2);
             var f = this.payloadMessage.payloadBytes;
             (t += f.byteLength),
               f instanceof ArrayBuffer
@@ -237,12 +237,12 @@ var Q = { exports: {} };
                 : f instanceof Uint8Array || (f = new Uint8Array(f.buffer));
             break;
         }
-        var g = H(t),
+        var g = z(t),
           l = g.length + 1,
           m = new ArrayBuffer(t + l),
           u = new Uint8Array(m);
         if (((u[0] = e), u.set(g, 1), this.type == d.PUBLISH))
-          l = R(this.payloadMessage.destinationName, r, u, l);
+          l = U(this.payloadMessage.destinationName, s, u, l);
         else if (this.type == d.CONNECT) {
           switch (this.mqttVersion) {
             case 3:
@@ -261,50 +261,50 @@ var Q = { exports: {} };
             this.userName !== void 0 && (n |= 128),
             this.password !== void 0 && (n |= 64),
             (u[l++] = n),
-            (l = L(this.keepAliveInterval, u, l));
+            (l = D(this.keepAliveInterval, u, l));
         }
         switch (
           (this.messageIdentifier !== void 0 &&
-            (l = L(this.messageIdentifier, u, l)),
+            (l = D(this.messageIdentifier, u, l)),
           this.type)
         ) {
           case d.CONNECT:
-            (l = R(this.clientId, T(this.clientId), u, l)),
+            (l = U(this.clientId, T(this.clientId), u, l)),
               this.willMessage !== void 0 &&
-                ((l = R(
+                ((l = U(
                   this.willMessage.destinationName,
                   T(this.willMessage.destinationName),
                   u,
                   l
                 )),
-                (l = L(o.byteLength, u, l)),
+                (l = D(o.byteLength, u, l)),
                 u.set(o, l),
                 (l += o.byteLength)),
               this.userName !== void 0 &&
-                (l = R(this.userName, T(this.userName), u, l)),
+                (l = U(this.userName, T(this.userName), u, l)),
               this.password !== void 0 &&
-                (l = R(this.password, T(this.password), u, l));
+                (l = U(this.password, T(this.password), u, l));
             break;
           case d.PUBLISH:
             u.set(f, l);
             break;
           case d.SUBSCRIBE:
-            for (var s = 0; s < this.topics.length; s++)
-              (l = R(this.topics[s], i[s], u, l)),
-                (u[l++] = this.requestedQos[s]);
+            for (var r = 0; r < this.topics.length; r++)
+              (l = U(this.topics[r], i[r], u, l)),
+                (u[l++] = this.requestedQos[r]);
             break;
           case d.UNSUBSCRIBE:
-            for (var s = 0; s < this.topics.length; s++)
-              l = R(this.topics[s], i[s], u, l);
+            for (var r = 0; r < this.topics.length; r++)
+              l = U(this.topics[r], i[r], u, l);
             break;
         }
         return m;
       };
-      function Y(e, t) {
+      function j(e, t) {
         var i = t,
-          r = e[t],
-          o = r >> 4,
-          s = (r &= 15);
+          s = e[t],
+          o = s >> 4,
+          r = (s &= 15);
         t += 1;
         var f,
           g = 0,
@@ -322,14 +322,14 @@ var Q = { exports: {} };
             n & 1 && (u.sessionPresent = !0), (u.returnCode = e[t++]);
             break;
           case d.PUBLISH:
-            var v = (s >> 1) & 3,
-              _ = D(e, t);
+            var v = (r >> 1) & 3,
+              _ = k(e, t);
             t += 2;
             var S = K(e, t, _);
-            (t += _), v > 0 && ((u.messageIdentifier = D(e, t)), (t += 2));
-            var p = new U(e.subarray(t, m));
-            (s & 1) == 1 && (p.retained = !0),
-              (s & 8) == 8 && (p.duplicate = !0),
+            (t += _), v > 0 && ((u.messageIdentifier = k(e, t)), (t += 2));
+            var p = new R(e.subarray(t, m));
+            (r & 1) == 1 && (p.retained = !0),
+              (r & 8) == 8 && (p.duplicate = !0),
               (p.qos = v),
               (p.destinationName = S),
               (u.payloadMessage = p);
@@ -339,81 +339,81 @@ var Q = { exports: {} };
           case d.PUBREL:
           case d.PUBCOMP:
           case d.UNSUBACK:
-            u.messageIdentifier = D(e, t);
+            u.messageIdentifier = k(e, t);
             break;
           case d.SUBACK:
-            (u.messageIdentifier = D(e, t)),
+            (u.messageIdentifier = k(e, t)),
               (t += 2),
               (u.returnCode = e.subarray(t, m));
             break;
         }
         return [u, m];
       }
-      function L(e, t, i) {
+      function D(e, t, i) {
         return (t[i++] = e >> 8), (t[i++] = e % 256), i;
       }
-      function R(e, t, i, r) {
-        return (r = L(t, i, r)), b(e, i, r), r + t;
+      function U(e, t, i, s) {
+        return (s = D(t, i, s)), b(e, i, s), s + t;
       }
-      function D(e, t) {
+      function k(e, t) {
         return 256 * e[t] + e[t + 1];
       }
-      function H(e) {
+      function z(e) {
         var t = new Array(1),
           i = 0;
         do {
-          var r = e % 128;
-          (e = e >> 7), e > 0 && (r |= 128), (t[i++] = r);
+          var s = e % 128;
+          (e = e >> 7), e > 0 && (s |= 128), (t[i++] = s);
         } while (e > 0 && i < 4);
         return t;
       }
       function T(e) {
         for (var t = 0, i = 0; i < e.length; i++) {
-          var r = e.charCodeAt(i);
-          r > 2047
-            ? (55296 <= r && r <= 56319 && (i++, t++), (t += 3))
-            : r > 127
+          var s = e.charCodeAt(i);
+          s > 2047
+            ? (55296 <= s && s <= 56319 && (i++, t++), (t += 3))
+            : s > 127
             ? (t += 2)
             : t++;
         }
         return t;
       }
       function b(e, t, i) {
-        for (var r = i, o = 0; o < e.length; o++) {
-          var s = e.charCodeAt(o);
-          if (55296 <= s && s <= 56319) {
+        for (var s = i, o = 0; o < e.length; o++) {
+          var r = e.charCodeAt(o);
+          if (55296 <= r && r <= 56319) {
             var f = e.charCodeAt(++o);
-            if (isNaN(f)) throw new Error(c(a.MALFORMED_UNICODE, [s, f]));
-            s = ((s - 55296) << 10) + (f - 56320) + 65536;
+            if (isNaN(f)) throw new Error(c(a.MALFORMED_UNICODE, [r, f]));
+            r = ((r - 55296) << 10) + (f - 56320) + 65536;
           }
-          s <= 127
-            ? (t[r++] = s)
-            : s <= 2047
-            ? ((t[r++] = ((s >> 6) & 31) | 192), (t[r++] = (s & 63) | 128))
-            : s <= 65535
-            ? ((t[r++] = ((s >> 12) & 15) | 224),
-              (t[r++] = ((s >> 6) & 63) | 128),
-              (t[r++] = (s & 63) | 128))
-            : ((t[r++] = ((s >> 18) & 7) | 240),
-              (t[r++] = ((s >> 12) & 63) | 128),
-              (t[r++] = ((s >> 6) & 63) | 128),
-              (t[r++] = (s & 63) | 128));
+          r <= 127
+            ? (t[s++] = r)
+            : r <= 2047
+            ? ((t[s++] = ((r >> 6) & 31) | 192), (t[s++] = (r & 63) | 128))
+            : r <= 65535
+            ? ((t[s++] = ((r >> 12) & 15) | 224),
+              (t[s++] = ((r >> 6) & 63) | 128),
+              (t[s++] = (r & 63) | 128))
+            : ((t[s++] = ((r >> 18) & 7) | 240),
+              (t[s++] = ((r >> 12) & 63) | 128),
+              (t[s++] = ((r >> 6) & 63) | 128),
+              (t[s++] = (r & 63) | 128));
         }
         return t;
       }
       function K(e, t, i) {
-        for (var r = "", o, s = t; s < t + i; ) {
-          var f = e[s++];
+        for (var s = "", o, r = t; r < t + i; ) {
+          var f = e[r++];
           if (f < 128) o = f;
           else {
-            var g = e[s++] - 128;
+            var g = e[r++] - 128;
             if (g < 0)
               throw new Error(
                 c(a.MALFORMED_UTF, [f.toString(16), g.toString(16), ""])
               );
             if (f < 224) o = 64 * (f - 192) + g;
             else {
-              var l = e[s++] - 128;
+              var l = e[r++] - 128;
               if (l < 0)
                 throw new Error(
                   c(a.MALFORMED_UTF, [
@@ -424,7 +424,7 @@ var Q = { exports: {} };
                 );
               if (f < 240) o = 4096 * (f - 224) + 64 * g + l;
               else {
-                var m = e[s++] - 128;
+                var m = e[r++] - 128;
                 if (m < 0)
                   throw new Error(
                     c(a.MALFORMED_UTF, [
@@ -449,20 +449,20 @@ var Q = { exports: {} };
           }
           o > 65535 &&
             ((o -= 65536),
-            (r += String.fromCharCode(55296 + (o >> 10))),
+            (s += String.fromCharCode(55296 + (o >> 10))),
             (o = 56320 + (o & 1023))),
-            (r += String.fromCharCode(o));
+            (s += String.fromCharCode(o));
         }
-        return r;
+        return s;
       }
       var G = function (e, t) {
           (this._client = e),
             (this._keepAliveInterval = t * 1e3),
             (this.isReset = !1);
           var i = new y(d.PINGREQ).encode(),
-            r = function (s) {
+            s = function (r) {
               return function () {
-                return o.apply(s);
+                return o.apply(r);
               };
             },
             o = function () {
@@ -470,7 +470,7 @@ var Q = { exports: {} };
                 ? ((this.isReset = !1),
                   this._client._trace("Pinger.doPing", "send PINGREQ"),
                   this._client.socket.send(i),
-                  (this.timeout = setTimeout(r(this), this._keepAliveInterval)))
+                  (this.timeout = setTimeout(s(this), this._keepAliveInterval)))
                 : (this._client._trace("Pinger.doPing", "Timed out"),
                   this._client._disconnected(
                     a.PING_TIMEOUT.code,
@@ -481,38 +481,38 @@ var Q = { exports: {} };
             (this.isReset = !0),
               clearTimeout(this.timeout),
               this._keepAliveInterval > 0 &&
-                (this.timeout = setTimeout(r(this), this._keepAliveInterval));
+                (this.timeout = setTimeout(s(this), this._keepAliveInterval));
           }),
             (this.cancel = function () {
               clearTimeout(this.timeout);
             });
         },
-        k = function (e, t, i, r) {
+        B = function (e, t, i, s) {
           t || (t = 30);
-          var o = function (s, f, g) {
+          var o = function (r, f, g) {
             return function () {
-              return s.apply(f, g);
+              return r.apply(f, g);
             };
           };
-          (this.timeout = setTimeout(o(i, e, r), t * 1e3)),
+          (this.timeout = setTimeout(o(i, e, s), t * 1e3)),
             (this.cancel = function () {
               clearTimeout(this.timeout);
             });
         },
-        h = function (e, t, i, r, o) {
+        h = function (e, t, i, s, o) {
           if (!("WebSocket" in E && E.WebSocket !== null))
             throw new Error(c(a.UNSUPPORTED, ["WebSocket"]));
           if (!("ArrayBuffer" in E && E.ArrayBuffer !== null))
             throw new Error(c(a.UNSUPPORTED, ["ArrayBuffer"]));
-          this._trace("Paho.Client", e, t, i, r, o),
+          this._trace("Paho.Client", e, t, i, s, o),
             (this.host = t),
             (this.port = i),
-            (this.path = r),
+            (this.path = s),
             (this.uri = e),
             (this.clientId = o),
             (this._wsuri = null),
             (this._localKey =
-              t + ":" + i + (r != "/mqtt" ? ":" + r : "") + ":" + o + ":"),
+              t + ":" + i + (s != "/mqtt" ? ":" + s : "") + ":" + o + ":"),
             (this._msg_queue = []),
             (this._buffered_msg_queue = []),
             (this._sentMessages = {}),
@@ -520,10 +520,10 @@ var Q = { exports: {} };
             (this._notify_msg_sent = {}),
             (this._message_identifier = 1),
             (this._sequence = 0);
-          for (var s in N)
-            (s.indexOf("Sent:" + this._localKey) === 0 ||
-              s.indexOf("Received:" + this._localKey) === 0) &&
-              this.restore(s);
+          for (var r in N)
+            (r.indexOf("Sent:" + this._localKey) === 0 ||
+              r.indexOf("Received:" + this._localKey) === 0) &&
+              this.restore(r);
         };
       (h.prototype.host = null),
         (h.prototype.port = null),
@@ -580,7 +580,7 @@ var Q = { exports: {} };
           (i.topics = e.constructor === Array ? e : [e]),
             t.qos === void 0 && (t.qos = 0),
             (i.requestedQos = []);
-          for (var r = 0; r < i.topics.length; r++) i.requestedQos[r] = t.qos;
+          for (var s = 0; s < i.topics.length; s++) i.requestedQos[s] = t.qos;
           t.onSuccess &&
             (i.onSuccess = function (o) {
               t.onSuccess({
@@ -597,7 +597,7 @@ var Q = { exports: {} };
                 });
               }),
             t.timeout &&
-              (i.timeOut = new k(this, t.timeout, t.onFailure, [
+              (i.timeOut = new B(this, t.timeout, t.onFailure, [
                 {
                   invocationContext: t.invocationContext,
                   errorCode: a.SUBSCRIBE_TIMEOUT.code,
@@ -617,7 +617,7 @@ var Q = { exports: {} };
                 t.onSuccess({ invocationContext: t.invocationContext });
               }),
             t.timeout &&
-              (i.timeOut = new k(this, t.timeout, t.onFailure, [
+              (i.timeOut = new B(this, t.timeout, t.onFailure, [
                 {
                   invocationContext: t.invocationContext,
                   errorCode: a.UNSUBSCRIBE_TIMEOUT.code,
@@ -712,7 +712,7 @@ var Q = { exports: {} };
             )),
             this._connectTimeout &&
               (this._connectTimeout.cancel(), (this._connectTimeout = null)),
-            (this._connectTimeout = new k(
+            (this._connectTimeout = new B(
               this,
               this.connectOptions.timeout,
               this._disconnected,
@@ -733,14 +733,14 @@ var Q = { exports: {} };
               t.pubRecReceived && (i.pubRecReceived = !0),
                 (i.payloadMessage = {});
               for (
-                var r = "", o = t.payloadMessage.payloadBytes, s = 0;
-                s < o.length;
-                s++
+                var s = "", o = t.payloadMessage.payloadBytes, r = 0;
+                r < o.length;
+                r++
               )
-                o[s] <= 15
-                  ? (r = r + "0" + o[s].toString(16))
-                  : (r = r + o[s].toString(16));
-              (i.payloadMessage.payloadHex = r),
+                o[r] <= 15
+                  ? (s = s + "0" + o[r].toString(16))
+                  : (s = s + o[r].toString(16));
+              (i.payloadMessage.payloadHex = s),
                 (i.payloadMessage.qos = t.payloadMessage.qos),
                 (i.payloadMessage.destinationName =
                   t.payloadMessage.destinationName),
@@ -766,13 +766,13 @@ var Q = { exports: {} };
         (h.prototype.restore = function (e) {
           var t = N.getItem(e),
             i = JSON.parse(t),
-            r = new y(i.type, i);
+            s = new y(i.type, i);
           switch (i.type) {
             case d.PUBLISH:
               for (
                 var o = i.payloadMessage.payloadHex,
-                  s = new ArrayBuffer(o.length / 2),
-                  f = new Uint8Array(s),
+                  r = new ArrayBuffer(o.length / 2),
+                  f = new Uint8Array(r),
                   g = 0;
                 o.length >= 2;
 
@@ -780,21 +780,21 @@ var Q = { exports: {} };
                 var l = parseInt(o.substring(0, 2), 16);
                 (o = o.substring(2, o.length)), (f[g++] = l);
               }
-              var m = new U(f);
+              var m = new R(f);
               (m.qos = i.payloadMessage.qos),
                 (m.destinationName = i.payloadMessage.destinationName),
                 i.payloadMessage.duplicate && (m.duplicate = !0),
                 i.payloadMessage.retained && (m.retained = !0),
-                (r.payloadMessage = m);
+                (s.payloadMessage = m);
               break;
             default:
               throw Error(c(a.INVALID_STORED_DATA, [e, t]));
           }
           e.indexOf("Sent:" + this._localKey) === 0
-            ? ((r.payloadMessage.duplicate = !0),
-              (this._sentMessages[r.messageIdentifier] = r))
+            ? ((s.payloadMessage.duplicate = !0),
+              (this._sentMessages[s.messageIdentifier] = s))
             : e.indexOf("Received:" + this._localKey) === 0 &&
-              (this._receivedMessages[r.messageIdentifier] = r);
+              (this._receivedMessages[s.messageIdentifier] = s);
         }),
         (h.prototype._process_queue = function () {
           for (var e = null; (e = this._msg_queue.pop()); )
@@ -831,17 +831,17 @@ var Q = { exports: {} };
           var t = new Uint8Array(e),
             i = [];
           if (this.receiveBuffer) {
-            var r = new Uint8Array(this.receiveBuffer.length + t.length);
-            r.set(this.receiveBuffer),
-              r.set(t, this.receiveBuffer.length),
-              (t = r),
+            var s = new Uint8Array(this.receiveBuffer.length + t.length);
+            s.set(this.receiveBuffer),
+              s.set(t, this.receiveBuffer.length),
+              (t = s),
               delete this.receiveBuffer;
           }
           try {
             for (var o = 0; o < t.length; ) {
-              var s = Y(t, o),
-                f = s[0];
-              if (((o = s[1]), f !== null)) i.push(f);
+              var r = j(t, o),
+                f = r[0];
+              if (((o = r[1]), f !== null)) i.push(f);
               else break;
             }
             o < t.length && (this.receiveBuffer = t.subarray(o));
@@ -890,7 +890,7 @@ var Q = { exports: {} };
                 else {
                   this._disconnected(
                     a.CONNACK_RETURNCODE.code,
-                    c(a.CONNACK_RETURNCODE, [e.returnCode, J[e.returnCode]])
+                    c(a.CONNACK_RETURNCODE, [e.returnCode, H[e.returnCode]])
                   );
                   break;
                 }
@@ -899,22 +899,22 @@ var Q = { exports: {} };
                   this._sentMessages.hasOwnProperty(i) &&
                     o.push(this._sentMessages[i]);
                 if (this._buffered_msg_queue.length > 0)
-                  for (var r = null; (r = this._buffered_msg_queue.pop()); )
-                    o.push(r),
+                  for (var s = null; (s = this._buffered_msg_queue.pop()); )
+                    o.push(s),
                       this.onMessageDelivered &&
-                        (this._notify_msg_sent[r] = this.onMessageDelivered(
-                          r.payloadMessage
+                        (this._notify_msg_sent[s] = this.onMessageDelivered(
+                          s.payloadMessage
                         ));
                 for (
                   var o = o.sort(function (_, S) {
                       return _.sequence - S.sequence;
                     }),
-                    s = 0,
+                    r = 0,
                     f = o.length;
-                  s < f;
-                  s++
+                  r < f;
+                  r++
                 ) {
-                  var n = o[s];
+                  var n = o[r];
                   if (n.type == d.PUBLISH && n.pubRecReceived) {
                     var g = new y(d.PUBREL, {
                       messageIdentifier: n.messageIdentifier,
@@ -1084,7 +1084,7 @@ var Q = { exports: {} };
             (this._trace("Client._disconnected", e, t),
             e !== void 0 && this._reconnecting)
           ) {
-            this._reconnectTimeout = new k(
+            this._reconnectTimeout = new B(
               this,
               this._reconnectInterval,
               this._reconnect
@@ -1153,7 +1153,7 @@ var Q = { exports: {} };
             this.traceFunction({ severity: "Debug", message: i });
           }
           if (this._traceBuffer !== null)
-            for (var t = 0, r = arguments.length; t < r; t++)
+            for (var t = 0, s = arguments.length; t < s; t++)
               this._traceBuffer.length == this._MAX_TRACE_ENTRIES &&
                 this._traceBuffer.shift(),
                 t === 0
@@ -1164,24 +1164,24 @@ var Q = { exports: {} };
         }),
         (h.prototype._traceMask = function (e, t) {
           var i = {};
-          for (var r in e)
-            e.hasOwnProperty(r) && (r == t ? (i[r] = "******") : (i[r] = e[r]));
+          for (var s in e)
+            e.hasOwnProperty(s) && (s == t ? (i[s] = "******") : (i[s] = e[s]));
           return i;
         });
-      var j = function (e, t, i, r) {
+      var W = function (e, t, i, s) {
           var o;
           if (typeof e != "string")
             throw new Error(c(a.INVALID_TYPE, [typeof e, "host"]));
           if (arguments.length == 2) {
-            (r = t), (o = e);
-            var s = o.match(
+            (s = t), (o = e);
+            var r = o.match(
               /^(wss?):\/\/((\[(.+)\])|([^\/]+?))(:(\d+))?(\/.*)$/
             );
-            if (s) (e = s[4] || s[2]), (t = parseInt(s[7])), (i = s[8]);
+            if (r) (e = r[4] || r[2]), (t = parseInt(r[7])), (i = r[8]);
             else throw new Error(c(a.INVALID_ARGUMENT, [e, "host"]));
           } else {
             if (
-              (arguments.length == 3 && ((r = i), (i = "/mqtt")),
+              (arguments.length == 3 && ((s = i), (i = "/mqtt")),
               typeof t != "number" || t < 0)
             )
               throw new Error(c(a.INVALID_TYPE, [typeof t, "port"]));
@@ -1193,13 +1193,13 @@ var Q = { exports: {} };
               e.slice(-1) !== "]";
             o = "ws://" + (f ? "[" + e + "]" : e) + ":" + t + i;
           }
-          for (var g = 0, l = 0; l < r.length; l++) {
-            var m = r.charCodeAt(l);
+          for (var g = 0, l = 0; l < s.length; l++) {
+            var m = s.charCodeAt(l);
             55296 <= m && m <= 56319 && l++, g++;
           }
-          if (typeof r != "string" || g > 65535)
-            throw new Error(c(a.INVALID_ARGUMENT, [r, "clientId"]));
-          var u = new h(o, e, t, i, r);
+          if (typeof s != "string" || g > 65535)
+            throw new Error(c(a.INVALID_ARGUMENT, [s, "clientId"]));
+          var u = new h(o, e, t, i, s);
           Object.defineProperties(this, {
             host: {
               get: function () {
@@ -1353,7 +1353,7 @@ var Q = { exports: {} };
                   c(a.INVALID_ARGUMENT, [n.password, "connectOptions.password"])
                 );
               if (n.willMessage) {
-                if (!(n.willMessage instanceof U))
+                if (!(n.willMessage instanceof R))
                   throw new Error(
                     c(a.INVALID_TYPE, [
                       n.willMessage,
@@ -1436,8 +1436,8 @@ var Q = { exports: {} };
                       );
                     var S = n.hosts[_],
                       p = n.ports[_],
-                      z = S.indexOf(":") !== -1;
-                    (o = "ws://" + (z ? "[" + S + "]" : S) + ":" + p + i),
+                      $ = S.indexOf(":") !== -1;
+                    (o = "ws://" + ($ ? "[" + S + "]" : S) + ":" + p + i),
                       n.uris.push(o);
                   }
                 }
@@ -1493,7 +1493,7 @@ var Q = { exports: {} };
               if (arguments.length === 0)
                 throw new Error("Invalid argument.length");
               if (arguments.length == 1) {
-                if (!(n instanceof U) && typeof n != "string")
+                if (!(n instanceof R) && typeof n != "string")
                   throw new Error("Invalid argument:" + typeof n);
                 if (((p = n), typeof p.destinationName > "u"))
                   throw new Error(
@@ -1504,7 +1504,7 @@ var Q = { exports: {} };
                   );
                 u.send(p);
               } else
-                (p = new U(v)),
+                (p = new R(v)),
                   (p.destinationName = n),
                   arguments.length >= 3 && (p.qos = _),
                   arguments.length >= 4 && (p.retained = S),
@@ -1515,7 +1515,7 @@ var Q = { exports: {} };
               if (arguments.length === 0)
                 throw new Error("Invalid argument.length");
               if (arguments.length == 1) {
-                if (!(n instanceof U) && typeof n != "string")
+                if (!(n instanceof R) && typeof n != "string")
                   throw new Error("Invalid argument:" + typeof n);
                 if (((p = n), typeof p.destinationName > "u"))
                   throw new Error(
@@ -1526,7 +1526,7 @@ var Q = { exports: {} };
                   );
                 u.send(p);
               } else
-                (p = new U(v)),
+                (p = new R(v)),
                   (p.destinationName = n),
                   arguments.length >= 3 && (p.qos = _),
                   arguments.length >= 4 && (p.retained = S),
@@ -1548,7 +1548,7 @@ var Q = { exports: {} };
               return u.connected;
             });
         },
-        U = function (e) {
+        R = function (e) {
           var t;
           if (
             typeof e == "string" ||
@@ -1558,9 +1558,9 @@ var Q = { exports: {} };
             t = e;
           else throw c(a.INVALID_ARGUMENT, [e, "newPayload"]);
           var i,
-            r = 0,
+            s = 0,
             o = !1,
-            s = !1;
+            r = !1;
           Object.defineProperties(this, {
             payloadString: {
               enumerable: !0,
@@ -1594,10 +1594,10 @@ var Q = { exports: {} };
             qos: {
               enumerable: !0,
               get: function () {
-                return r;
+                return s;
               },
               set: function (f) {
-                if (f === 0 || f === 1 || f === 2) r = f;
+                if (f === 0 || f === 1 || f === 2) s = f;
                 else throw new Error("Invalid argument:" + f);
               },
             },
@@ -1623,15 +1623,15 @@ var Q = { exports: {} };
             duplicate: {
               enumerable: !0,
               get: function () {
-                return s;
+                return r;
               },
               set: function (f) {
-                s = f;
+                r = f;
               },
             },
           });
         };
-      return { Client: j, Message: U };
+      return { Client: W, Message: R };
     })(
       typeof V < "u"
         ? V
@@ -1644,16 +1644,17 @@ var Q = { exports: {} };
     return w;
   });
 })(Q);
-var $ = Q.exports;
-const X = W($);
+var Z = Q.exports;
+const ee = X(Z);
 let x = {
   broker: "broker.hivemq.com",
   port: 8884,
   clientID: "web" + new Date().getTime(),
   topic: "ucla/hack/" + team_name,
 };
-const B = new X.Client(x.broker, x.port, x.clientID),
-  Z = () => {
+const te = 1e3,
+  L = new ee.Client(x.broker, x.port, x.clientID),
+  ne = () => {
     console.log(
       "Connected to broker '" +
         x.broker +
@@ -1662,12 +1663,16 @@ const B = new X.Client(x.broker, x.port, x.clientID),
         "' on port " +
         x.port
     ),
-      B.subscribe(x.topic);
+      L.subscribe(x.topic);
   },
-  ee = (I) => {
-    I.errorCode !== 0 && console.log("onConnectionLost:" + I.errorMessage);
+  J = (I) => {
+    I.errorCode !== 0 &&
+      (console.log("onConnectionLost:" + I.errorMessage),
+      setTimeout(() => {
+        console.log("Reconnecting..."), L.connect(Y);
+      }, te));
   },
-  te = (I) => {
+  ie = (I) => {
     console.log("Message received: " + I.payloadString);
     let M = "";
     try {
@@ -1682,7 +1687,8 @@ const B = new X.Client(x.broker, x.port, x.clientID),
       } catch (w) {
         console.log(w);
       }
-  };
-B.connect({ onSuccess: Z, useSSL: !0 });
-B.onConnectionLost = ee;
-B.onMessageArrived = te;
+  },
+  Y = { onSuccess: ne, onFailure: J, useSSL: !0 };
+L.connect(Y);
+L.onConnectionLost = J;
+L.onMessageArrived = ie;
