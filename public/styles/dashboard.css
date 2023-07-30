@@ -44,7 +44,30 @@
   transform: translateX(-50%);
   display: block;
   text-shadow: -0.03em 0 black, 0 0.03em black, 0.03em 0 black, 0 -0.03em black;
-    font-size: 1.5em;
+  font-size: 1.5em;
   margin-left: 50%;
   text-align: center;
+}
+
+.grid-widgets {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  display: inline-grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+  grid-template-rows: repeat(2, 1fr); /* Two rows with equal height */
+}
+
+#humidity-widget,
+#temperature-widget,
+#gas-widget,
+#ultrasonic-widget {
+  background-color: var(--text-color);
+  /* width: 200px;
+  height: 200px; */
+  margin: 16px;
+}
+
+#humidity-widget,
+#temperature-widget {
+  border-radius: 100%;
 }
