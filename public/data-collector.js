@@ -29,17 +29,37 @@
     ctx.closePath();
 
     if (id == "humidity") {
-      // ctx.fill
+      let grad = ctx.createLinearGradient(0, HEIGHT, 2, 0);
+      grad.addColorStop(0, "white");
+      grad.addColorStop(0.25, "#91f8ff");
+      grad.addColorStop(1, "#3166c9");
+      ctx.fillStyle = grad;
+      ctx.strokeStyle = "black";
     } else if (id == "temperature") {
-
+      let grad = ctx.createLinearGradient(0, HEIGHT, 2, 0);
+      grad.addColorStop(0, "#00aaff");
+      grad.addColorStop(0.25, "#66ccff");
+      grad.addColorStop(0.5, "white");
+      grad.addColorStop(0.75, "#ffaa00");
+      grad.addColorStop(1, "#ff0000");
+      ctx.fillStyle = grad;
+      ctx.strokeStyle = "black";
     } else if (id == "gas") {
-
+      let grad = ctx.createLinearGradient(0, HEIGHT, 2, 0);
+      grad.addColorStop(0, "white");
+      grad.addColorStop(1, "#aaa");
+      ctx.fillStyle = grad;
+      ctx.strokeStyle = "black";
     } else if (id == "ultrasonic") {
-
+      let grad = ctx.createLinearGradient(0, HEIGHT, 2, 0);
+      grad.addColorStop(0, "white");
+      grad.addColorStop(0.25, "#aaa");
+      ctx.fillStyle = grad;
+      ctx.strokeStyle = "black";
     }
 
-    ctx.stroke();
     ctx.fill();
+    ctx.stroke();
   }
 
   ["humidity", "temperature", "gas", "ultrasonic"].map((tag) => {
