@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      team_name = "BearRescue";
+    </script>
+    <script type="module" src="communication.js"></script>
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/dashboard.css" />
+    <title>Bear Rescue - Gauntlet Dashboard</title>
+  </head>
+  <body>
+    <div id="main-nav">
+      <ul class="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="dashboard.html">Dashboard</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+
+      <h1>Bear<span class="UCLA-Gold">Rescue</span> is Here!</h1>
+      <div class="live-data">
+        <p id="humidity">0</p>
+        <p id="temperature">0</p>
+        <p id="gas">0</p>
+        <p id="ultrasonic">0</p>
+      </div>
+
+      <br />
+      <br />
+      <div class="grid-widgets">
+        <canvas id="humidity-widget" width="200" height="200"></canvas>
+        <canvas id="temperature-widget" width="200" height="200"></canvas>
+        <canvas id="gas-widget" width="200" height="200"></canvas>
+        <canvas id="ultrasonic-widget" width="200" height="200"></canvas>
+      </div>
+    </div>
+    <div class="thematic-image"></div>
+
+    <script src="data-collector.js"></script>
+  </body>
+</html>
