@@ -94,6 +94,14 @@ a:hover {
   color: var(--ucla-gold);
 }
 
+.image-holder {
+  
+}
+
+.image-small {
+  width: 400px;
+}
+
 /* Navbar styles */
 
 ul.navbar {

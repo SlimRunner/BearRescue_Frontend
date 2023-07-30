@@ -45,16 +45,16 @@
   display: block;
   text-shadow: -0.03em 0 black, 0 0.03em black, 0.03em 0 black, 0 -0.03em black;
   font-size: 1.5em;
-  margin-left: 50%;
-  text-align: center;
+  margin-left: 30%;
+  text-align: left;
 }
 
 .grid-widgets {
   margin-left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-40%);
   display: inline-grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
-  grid-template-rows: repeat(2, 1fr); /* Two rows with equal height */
+  grid-template-columns: repeat(2, 400px); /* Two columns with equal width */
+  grid-template-rows: repeat(2, 300px); /* Two rows with equal height */
 }
 
 #humidity-widget,
@@ -67,7 +67,7 @@
   margin: 16px;
 }
 
-#humidity-widget,
+/* #humidity-widget,
 #temperature-widget {
   border-radius: 100%;
-}
+} */
