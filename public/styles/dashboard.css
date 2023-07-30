@@ -39,13 +39,12 @@
   margin-right: 8px;
 }
 
-
-
-p {
+.live-data p {
   color: white;
   transform: translateX(-50%);
   display: block;
   text-shadow: -0.03em 0 black, 0 0.03em black, 0.03em 0 black, 0 -0.03em black;
     font-size: 1.5em;
   margin-left: 50%;
+  text-align: center;
 }

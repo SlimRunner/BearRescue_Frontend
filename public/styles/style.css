@@ -34,6 +34,18 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  font-family: "Chakra Petch", Helvetica, Arial, Lucida, sans-serif;
+}
+
+h2::before {
+  content: " ";
+  display: block;
+  bottom: 0;
+  border-bottom: 2px solid var(--ucla-gold);
+  width: 100%;
+}
+
 p {
   line-height: 1.6em;
 }
